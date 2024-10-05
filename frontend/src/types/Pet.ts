@@ -3,6 +3,6 @@ export default interface Pet {
     species: string,
     name: string,
     description: string | null,
-    photo: string | null,
-    spottedTime: string,
+    imageUrl: string | null,
+    timeSpotted: string | null,
 }

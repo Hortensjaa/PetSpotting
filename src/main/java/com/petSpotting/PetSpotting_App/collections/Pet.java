@@ -51,7 +51,7 @@ public class Pet {
         return this.imageUrl;
     }
 
-    public void setImageUrl(String description) {
+    public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
     }
 
