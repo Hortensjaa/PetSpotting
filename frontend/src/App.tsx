@@ -1,9 +1,9 @@
 import {useEffect, useState} from 'react'
 import Grid from '@mui/material/Grid2';
 
-import './styles/App.css'
 import Pet from "./types/Pet.ts";
 import PetCard from "./components/PetCard.tsx";
+import AppBar from "./components/AppBar.tsx";
 
 function App() {
     const [petsList, setPets] = useState<Pet[]>([]);
@@ -18,11 +18,13 @@ function App() {
     }, []);
 
     return (
-        <div className="App">
-            <h1>Welcome to PetSpotting App</h1>
-            <Grid container spacing={4} justifyContent="center" alignItems="center">
+        <div className="App" >
+            <AppBar />
+            <Grid container spacing={4} justifyContent="space-between" alignItems="center">
                 {petsList.map((p) => (
-                    <Grid item key={p._id} xs={12} sm={6} md={4} lg={3}>
+                    <Grid item key={p._id} xs={12} sm={6} md={4} sx={{
+                        margin: { xs: 0, sm: 2, md: 5 },
+                    }}>
                         <PetCard
                             _id={p._id}
                             name={p.name}

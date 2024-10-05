@@ -20,10 +20,10 @@ import {Box} from "@mui/material";
 
 export default function PetCard(pet: Pet) {
     return (
-        <Card sx={{ maxWidth: 450 }}>
+        <Card sx={{ minWidth: 375, width: '100%'}}>
             <CardHeader
                 avatar={
-                    <Avatar sx={{ bgcolor: purple[200] }} aria-label="user">
+                    <Avatar sx={{ bgcolor: (theme) => theme.palette.secondary.main }} aria-label="user">
                         U
                     </Avatar>
                 }
@@ -37,9 +37,13 @@ export default function PetCard(pet: Pet) {
             />
             <CardMedia
                 component="img"
-                height="300"
-                image={pet.imageUrl ? pet.imageUrl : 'https://i.sstatic.net/y9DpT.jpg'}
+                image={pet.imageUrl ? pet.imageUrl : 'https://placehold.co/600x800'}
                 alt={pet.name}
+                sx={{
+                    height: {
+                        md: 500,
+                        sm: 500,
+                    },}}
             />
             <CardContent>
                 <Typography variant="body2" sx={{ color: 'text.secondary' }}>
