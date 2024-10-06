@@ -18,6 +18,12 @@ import {Box} from "@mui/material";
 
 
 export default function PetCard(pet: Pet) {
+    const handleImageClick = (imageUrl) => {
+        if (imageUrl) {
+            window.open(imageUrl, "_blank");
+        }
+    };
+
     return (
         <Card sx={{ width: '100%' }}>
             <CardHeader
@@ -38,7 +44,9 @@ export default function PetCard(pet: Pet) {
                 component="img"
                 image={pet.imageUrl ? pet.imageUrl : 'https://placehold.co/600x800'}
                 alt={pet.name}
+                onClick={() => handleImageClick(pet.imageUrl)}
                 sx={{
+                    cursor: pet.imageUrl ? 'pointer' : 'default',
                     height: {
                         md: 500,
                         sm: 500,

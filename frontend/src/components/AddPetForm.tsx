@@ -1,10 +1,5 @@
 import {ChangeEvent, useState} from "react";
-import {
-    Box,
-    Button, Chip, FormControl,
-    Input, InputLabel,
-    TextField
-} from "@mui/material";
+import {Box, Button, Chip, FormControl, Input, TextField} from "@mui/material";
 import Typography from "@mui/material/Typography";
 
 import {speciesList} from "../types/Pet.ts";
@@ -16,6 +11,7 @@ const AddPetForm = () => {
     const [name, setName] = useState<string>('');
     const [species, setSpecies] = useState<string>('OTHER');
     const [description, setDescription] = useState<string>('');
+    const [loading, setLoading] = useState(false)
 
     const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
         if (e.target.files) {
@@ -29,8 +25,8 @@ const AddPetForm = () => {
     };
 
     const handleUpload = async () => {
-        if (file) {
-            console.log('Uploading file...');
+        if (file && name) {
+            setLoading(true)
             const formData = new FormData();
             formData.append('name', name);
             formData.append('species', species);
@@ -49,10 +45,10 @@ const AddPetForm = () => {
                 setFile(null)
                 setFileUrl('')
                 setSpecies('OTHER')
-
             } catch (error) {
                 console.error(error);
             }
+            setLoading(false)
         }
     };
 
@@ -63,9 +59,10 @@ const AddPetForm = () => {
                 display: 'flex',
                 flexDirection: 'column',
                 gap: 2,
-                padding: {xs: 0, sm: 2, md: 2},
+                padding: 2,
                 borderRadius: {xs: 0, sm: 1, md: 1},
                 boxShadow: {xs: 0, sm: 1, md: 2},
+                boxSizing: 'border-box'
             }}
         >
             <Typography variant="h4" textAlign="center" width='100%' color='secondary'>
@@ -126,7 +123,7 @@ const AddPetForm = () => {
                 onClick={handleUpload}
                 variant="contained"
                 color="secondary"
-                disabled={!file || !name}
+                disabled={!file || !name || loading}
                 sx={{mt: 2}}
             >
                 Share

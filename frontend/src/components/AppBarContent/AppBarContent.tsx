@@ -1,12 +1,14 @@
 import * as React from 'react';
-import { AppBar, Toolbar, IconButton, Badge, Typography, Box } from '@mui/material';
+import {AppBar, Toolbar, IconButton, Badge, Typography, Box, Tooltip} from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import CommentIcon from '@mui/icons-material/Comment';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import MoreIcon from '@mui/icons-material/MoreVert';
-import {Add} from "@mui/icons-material";
+import InfoIcon from '@mui/icons-material/Info';
+import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 import { Search, SearchIconWrapper, StyledInputBase } from './Search.tsx'
+import AppBarIcon from "./AppBarIcon.tsx";
 
 interface AppBarContentProps {
     handleProfileMenuOpen: (event: React.MouseEvent<HTMLElement>) => void;
@@ -19,9 +21,22 @@ const AppBarContent: React.FC<AppBarContentProps> = ({  handleMobileMenuOpen, mo
     return (
         <AppBar position="fixed">
             <Toolbar>
-                <IconButton size="large" edge="start" color="inherit" aria-label="add pet" sx={{ mr: 2 }}>
-                    <Add />
-                </IconButton>
+                <Box sx={{ display: { xs: 'none', md: 'flex', sm: 'flex' } }}>
+                    <Tooltip title={
+                        <>
+                            Functionalities that will be added soon: <br/>
+                            - search bar <br/>
+                            - creating account <br/>
+                            - commenting and reacting to posts <br/>
+                            - editing and deleting posts <br/>
+                            - share links
+                        </>
+                    }>
+                        <IconButton size="large" edge="start" color="inherit" aria-label="add pet" sx={{ mr: 2 }}>
+                            <InfoIcon />
+                        </IconButton>
+                    </Tooltip>
+                </Box>
                 <Typography variant="h6" noWrap component="div" sx={{ display: { xs: 'none', sm: 'block' } }} >
                     Pet Spotting
                 </Typography>
@@ -33,24 +48,10 @@ const AppBarContent: React.FC<AppBarContentProps> = ({  handleMobileMenuOpen, mo
                 </Search>
                 <Box sx={{ flexGrow: 1 }} />
                 <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-                    <IconButton size="large" aria-label="show 4 new comments" color="inherit">
-                        <Badge badgeContent={4} color="secondary">
-                            <CommentIcon />
-                        </Badge>
-                    </IconButton>
-                    <IconButton size="large" aria-label="show 17 new reactions" color="inherit">
-                        <Badge badgeContent={17} color="secondary">
-                            <FavoriteIcon />
-                        </Badge>
-                    </IconButton>
-                    <IconButton
-                        size="large"
-                        edge="end"
-                        aria-label="account of current user"
-                        color="inherit"
-                    >
-                        <AccountCircle />
-                    </IconButton>
+                    <AppBarIcon icon={<PeopleAltIcon />} textOnHover={"New posts"} badgeNum={5}/>
+                    <AppBarIcon icon={<CommentIcon />} textOnHover={"New comments"} badgeNum={4}/>
+                    <AppBarIcon icon={<FavoriteIcon />} textOnHover={"New reactions"} badgeNum={12}/>
+                    <AppBarIcon icon={<AccountCircle />} textOnHover={"Profile"} badgeNum={0}/>
                 </Box>
                 <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
                     <IconButton

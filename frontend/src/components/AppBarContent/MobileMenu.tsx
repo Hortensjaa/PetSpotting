@@ -3,13 +3,14 @@ import { Menu, MenuItem, IconButton, Badge } from '@mui/material';
 import CommentIcon from '@mui/icons-material/Comment';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import AccountCircle from '@mui/icons-material/AccountCircle';
+import MobileMenuItem from "./MobileMenuItem.tsx";
+import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 
 interface MobileMenuProps {
     mobileMoreAnchorEl: HTMLElement | null | undefined;
     mobileMenuId: string;
     isMobileMenuOpen: boolean;
     handleMobileMenuClose: () => void;
-    handleProfileMenuOpen: (event: React.MouseEvent<HTMLElement>) => void;
 }
 
 const MobileMenu: React.FC<MobileMenuProps> = ({
@@ -17,7 +18,6 @@ const MobileMenu: React.FC<MobileMenuProps> = ({
                                                    mobileMenuId,
                                                    isMobileMenuOpen,
                                                    handleMobileMenuClose,
-                                                   handleProfileMenuOpen,
                                                }) => {
     return (
         <Menu
@@ -29,28 +29,10 @@ const MobileMenu: React.FC<MobileMenuProps> = ({
             open={isMobileMenuOpen}
             onClose={handleMobileMenuClose}
         >
-            <MenuItem>
-                <IconButton size="large" aria-label="show 4 new comments" color="inherit">
-                    <Badge badgeContent={4} color="secondary">
-                        <CommentIcon />
-                    </Badge>
-                </IconButton>
-                <p>Comments</p>
-            </MenuItem>
-            <MenuItem>
-                <IconButton size="large" aria-label="show 17 new reactions" color="inherit">
-                    <Badge badgeContent={17} color="secondary">
-                        <FavoriteIcon />
-                    </Badge>
-                </IconButton>
-                <p>Reactions</p>
-            </MenuItem>
-            <MenuItem onClick={handleProfileMenuOpen}>
-                <IconButton size="large" aria-label="account of current user" aria-controls={mobileMenuId} aria-haspopup="true" color="inherit">
-                    <AccountCircle />
-                </IconButton>
-                <p>Profile</p>
-            </MenuItem>
+            <MobileMenuItem icon={<PeopleAltIcon />} text="New posts" badgeNum={5} />
+            <MobileMenuItem icon={<CommentIcon />} text="Comments" badgeNum={4} />
+            <MobileMenuItem icon={<FavoriteIcon />} text="Reactions" badgeNum={12} />
+            <MobileMenuItem icon={<AccountCircle />} text="Profile" badgeNum={0} />
         </Menu>
     );
 };
