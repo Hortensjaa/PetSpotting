@@ -1,4 +1,4 @@
-package com.petSpotting.PetSpotting_App;
+package com.petSpotting.PetSpotting_App.services;
 
 
 import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
@@ -8,6 +8,7 @@ import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.gson.GsonFactory;
 import com.google.api.services.drive.Drive;
 import com.google.api.services.drive.DriveScopes;
+import com.petSpotting.PetSpotting_App.collections.Res;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -29,7 +30,7 @@ public class DriverService {
         return filePath.toString();
     }
 
-    public Res uploadImageToDrive(File file) throws GeneralSecurityException, IOException {
+    public Res uploadImageToDrive(File file) {
         Res res = new Res();
 
         try{
@@ -42,14 +43,10 @@ public class DriverService {
             com.google.api.services.drive.model.File uploadedFile = drive.files().create(fileMetaData, mediaContent)
                     .setFields("id").execute();
             String imageUrl = "https://drive.google.com/thumbnail?id="+uploadedFile.getId()+"&sz=w1000";
-//            String imageUrl = "https://drive.google.com/uc?export=view&id="+uploadedFile.getId();
-            System.out.println("IMAGE URL: " + imageUrl);
             file.delete();
             res.setStatus(200);
-            res.setMessage("Image Successfully Uploaded To Drive");
             res.setUrl(imageUrl);
         } catch (Exception e){
-            System.out.println(e.getMessage());
             res.setStatus(500);
             res.setMessage(e.getMessage());
         }
@@ -65,8 +62,7 @@ public class DriverService {
         return new Drive.Builder(
                 GoogleNetHttpTransport.newTrustedTransport(),
                 JSON_FACTORY,
-                credential)
-                .build();
+                credential).build();
 
     }
 }

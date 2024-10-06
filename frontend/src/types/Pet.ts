@@ -4,5 +4,5 @@ export default interface Pet {
     name: string,
     description: string | null,
     imageUrl: string | null,
-    timeSpotted: string | null,
+    timeSpotted: string,
 }

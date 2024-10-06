@@ -1,4 +1,4 @@
-package com.petSpotting.PetSpotting_App;
+package com.petSpotting.PetSpotting_App.collections;
 
 import lombok.Data;
 
