@@ -1,12 +1,12 @@
 import * as React from 'react';
 import { AppBar, Toolbar, IconButton, Badge, Typography, Box } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
-import MailIcon from '@mui/icons-material/Mail';
-import NotificationsIcon from '@mui/icons-material/Notifications';
+import CommentIcon from '@mui/icons-material/Comment';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import MoreIcon from '@mui/icons-material/MoreVert';
-import { Search, SearchIconWrapper, StyledInputBase } from './Search.tsx'
 import {Add} from "@mui/icons-material";
+import { Search, SearchIconWrapper, StyledInputBase } from './Search.tsx'
 
 interface AppBarContentProps {
     handleProfileMenuOpen: (event: React.MouseEvent<HTMLElement>) => void;
@@ -17,7 +17,7 @@ interface AppBarContentProps {
 
 const AppBarContent: React.FC<AppBarContentProps> = ({  handleMobileMenuOpen, mobileMenuId }) => {
     return (
-        <AppBar position="sticky">
+        <AppBar position="fixed">
             <Toolbar>
                 <IconButton size="large" edge="start" color="inherit" aria-label="add pet" sx={{ mr: 2 }}>
                     <Add />
@@ -33,14 +33,14 @@ const AppBarContent: React.FC<AppBarContentProps> = ({  handleMobileMenuOpen, mo
                 </Search>
                 <Box sx={{ flexGrow: 1 }} />
                 <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-                    <IconButton size="large" aria-label="show 4 new mails" color="inherit">
+                    <IconButton size="large" aria-label="show 4 new comments" color="inherit">
                         <Badge badgeContent={4} color="secondary">
-                            <MailIcon />
+                            <CommentIcon />
                         </Badge>
                     </IconButton>
-                    <IconButton size="large" aria-label="show 17 new notifications" color="inherit">
+                    <IconButton size="large" aria-label="show 17 new reactions" color="inherit">
                         <Badge badgeContent={17} color="secondary">
-                            <NotificationsIcon />
+                            <FavoriteIcon />
                         </Badge>
                     </IconButton>
                     <IconButton

@@ -20,7 +20,7 @@ import {Box} from "@mui/material";
 
 export default function PetCard(pet: Pet) {
     return (
-        <Card sx={{ minWidth: 375, width: '100%'}}>
+        <Card sx={{ width: '100%' }}>
             <CardHeader
                 avatar={
                     <Avatar sx={{ bgcolor: (theme) => theme.palette.secondary.main }} aria-label="user">

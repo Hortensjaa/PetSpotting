@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Menu, MenuItem, IconButton, Badge } from '@mui/material';
-import MailIcon from '@mui/icons-material/Mail';
-import NotificationsIcon from '@mui/icons-material/Notifications';
+import CommentIcon from '@mui/icons-material/Comment';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 
 interface MobileMenuProps {
@@ -30,20 +30,20 @@ const MobileMenu: React.FC<MobileMenuProps> = ({
             onClose={handleMobileMenuClose}
         >
             <MenuItem>
-                <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-                    <Badge badgeContent={4} color="error">
-                        <MailIcon />
+                <IconButton size="large" aria-label="show 4 new comments" color="inherit">
+                    <Badge badgeContent={4} color="secondary">
+                        <CommentIcon />
                     </Badge>
                 </IconButton>
-                <p>Messages</p>
+                <p>Comments</p>
             </MenuItem>
             <MenuItem>
-                <IconButton size="large" aria-label="show 17 new notifications" color="inherit">
-                    <Badge badgeContent={17} color="error">
-                        <NotificationsIcon />
+                <IconButton size="large" aria-label="show 17 new reactions" color="inherit">
+                    <Badge badgeContent={17} color="secondary">
+                        <FavoriteIcon />
                     </Badge>
                 </IconButton>
-                <p>Notifications</p>
+                <p>Reactions</p>
             </MenuItem>
             <MenuItem onClick={handleProfileMenuOpen}>
                 <IconButton size="large" aria-label="account of current user" aria-controls={mobileMenuId} aria-haspopup="true" color="inherit">
