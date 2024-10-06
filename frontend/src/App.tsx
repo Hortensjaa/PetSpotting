@@ -9,9 +9,13 @@ import AddPetForm from "./components/AddPetForm.tsx";
 
 function App() {
     const [petsList, setPets] = useState<Pet[]>([]);
+    const gridItemStyles = {
+        marginX: {xs: 0, sm: 2, md: 5},
+        marginY: {xs: 0, sm: 0, md: 0},
+        width: {xs: '100%', sm: '50%', md: '25%'},
+    };
 
     useEffect(() => {
-
         fetch('/api/pets', {method: 'GET'})
             .then((response) => response.json())
             .then((data) => {
@@ -23,14 +27,12 @@ function App() {
             <Box sx={{width: {xs: '100%'}}}>
                 <AppBar/>
                 <Box sx={{height: {xs: 60, md: 80}}}/>
-                <AddPetForm/>
                 <Grid container spacing={2} justifyContent="space-between" alignItems="center">
+                    <Grid item="true" key={-1} xs={12} sm={6} md={4} sx={gridItemStyles}>
+                        <AddPetForm/>
+                    </Grid>
                     {petsList.map((p, i) => (
-                        <Grid item key={i} xs={12} sm={6} md={4} sx={{
-                            marginX: {xs: 0, sm: 2, md: 5},
-                            marginY: {xs: 0, sm: 0, md: 0},
-                            width: {xs: '100%', sm: '50%', md: '25%'}
-                        }}>
+                        <Grid item="true" key={i} xs={12} sm={6} md={4} sx={gridItemStyles}>
                             <PetCard key={i}
                                 _id={p._id}
                                 name={p.name}

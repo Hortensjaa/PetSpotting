@@ -6,3 +6,5 @@ export default interface Pet {
     imageUrl: string | null,
     timeSpotted: string,
 }
+
+export const speciesList = ["DOG", "CAT", "OTHER"]
