@@ -38,7 +38,7 @@ public class PetController {
             @RequestParam("name") String name, @RequestParam("description") String description,
             @RequestParam("species") String species, @RequestParam("image") MultipartFile file) throws Exception {
         if(name!=null && !name.isEmpty()) {
-            Pet pet = new Pet(name, description);
+            Pet pet = new Pet(name, description, Pet.castSpecies(species));
             if (file!=null && !file.isEmpty()) {
                 File tempFile = File.createTempFile("temp", null);
                 file.transferTo(tempFile);

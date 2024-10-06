@@ -19,9 +19,19 @@ public class Pet {
     private String imageUrl;
     private LocalDateTime timeSpotted;
 
-    public Pet(String name, String description) {
+    public Pet(String name, String description, Species species) {
         this.name = name;
         this.description = description;
-        this.species = Species.DOG;
+        this.species = species;
+    }
+
+    public static Species castSpecies(String species) {
+        if (species.equalsIgnoreCase("cat")) {
+            return Species.CAT;
+        } else if (species.equalsIgnoreCase("dog")) {
+            return Species.DOG;
+        } else {
+            return Species.OTHER;
+        }
     }
 }
