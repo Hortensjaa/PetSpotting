@@ -44,6 +44,7 @@ export default function PetCard(pet: Pet) {
                 component="img"
                 image={pet.imageUrl ? pet.imageUrl : 'https://placehold.co/600x800'}
                 alt={pet.name}
+                onError={(e) => e.target.src = 'https://placehold.co/600x800'}
                 onClick={() => handleImageClick(pet.imageUrl)}
                 sx={{
                     cursor: pet.imageUrl ? 'pointer' : 'default',
