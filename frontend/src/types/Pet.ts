@@ -3,8 +3,8 @@ export default interface Pet {
     species: string,
     name: string,
     description: string | null,
-    imageUrl: string | null,
-    timeSpotted: string,
+    image_url: string | null,
+    time_spotted: string,
 }
 
 export const speciesList = ["DOG", "CAT", "OTHER"]

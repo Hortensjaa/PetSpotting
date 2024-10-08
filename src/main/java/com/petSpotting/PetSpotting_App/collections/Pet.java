@@ -1,28 +1,34 @@
 package com.petSpotting.PetSpotting_App.collections;
 
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDateTime;
 
 @Getter
 @Setter
-@Document(collection = "Pets")
+@Entity
+@Table(name = "Pets")
 public class Pet {
-    @Id
+    @jakarta.persistence.Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
     private String name;
+    @Enumerated(EnumType.STRING)
     private Species species;
     private String description;
-    private String imageUrl;
-    private LocalDateTime timeSpotted;
+    private String image_url;
+    private LocalDateTime time_spotted;
 
     public Pet(String name, String description, Species species) {
         this.name = name;
         this.description = description;
         this.species = species;
+    }
+
+    public Pet() {
+
     }
 
     public static Species castSpecies(String species) {

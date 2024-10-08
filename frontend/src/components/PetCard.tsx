@@ -38,16 +38,16 @@ export default function PetCard(pet: Pet) {
                     </IconButton>
                 }
                 title={pet.name}
-                subheader={pet.timeSpotted ? format(new Date(pet.timeSpotted), 'HH:mm:ss | dd.MM.yyyy') : "???"}
+                subheader={pet.time_spotted ? format(new Date(pet.time_spotted), 'HH:mm:ss | dd.MM.yyyy') : "???"}
             />
             <CardMedia
                 component="img"
-                image={pet.imageUrl ? pet.imageUrl : 'https://placehold.co/600x800'}
+                image={pet.image_url ? pet.image_url : 'https://placehold.co/600x800'}
                 alt={pet.name}
                 onError={(e) => e.target.src = 'https://placehold.co/600x800'}
-                onClick={() => handleImageClick(pet.imageUrl)}
+                onClick={() => handleImageClick(pet.image_url)}
                 sx={{
-                    cursor: pet.imageUrl ? 'pointer' : 'default',
+                    cursor: pet.image_url ? 'pointer' : 'default',
                     height: {
                         md: 500,
                         sm: 500,

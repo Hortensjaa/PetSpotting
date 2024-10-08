@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -23,8 +24,7 @@ public class PetController {
     private DriverService service;
 
     @GetMapping("/api/pets")
-    public ResponseEntity<List<Pet>> getAllPets() throws Exception
-    {
+    public ResponseEntity<List<Pet>> getAllPets() {
         List<Pet> pets = petService.getAllPets();
         if(pets!=null)
         {
@@ -36,14 +36,16 @@ public class PetController {
     @PostMapping("/api/pets")
     public ResponseEntity<Pet> addPet(
             @RequestParam("name") String name, @RequestParam("description") String description,
-            @RequestParam("species") String species, @RequestParam("image") MultipartFile file) throws Exception {
+            @RequestParam("species") String species, @RequestParam("image") MultipartFile file) throws Exception
+    {
         if(name!=null && !name.isEmpty()) {
             Pet pet = new Pet(name, description, Pet.castSpecies(species));
             if (file!=null && !file.isEmpty()) {
                 File tempFile = File.createTempFile("temp", null);
                 file.transferTo(tempFile);
-                pet.setImageUrl(service.uploadImageToDrive(tempFile).getUrl());
+                pet.setImage_url(service.uploadImageToDrive(tempFile).getUrl());
             }
+            pet.setTime_spotted(LocalDateTime.now());
             petService.addPet(pet);
             return new ResponseEntity<>(pet,HttpStatus.CREATED);
         }

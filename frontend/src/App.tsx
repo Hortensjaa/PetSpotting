@@ -38,8 +38,8 @@ function App() {
                                 name={p.name}
                                 species={p.species}
                                 description={p.description}
-                                imageUrl={p.imageUrl}
-                                timeSpotted={p.timeSpotted}
+                                image_url={p.image_url}
+                                time_spotted={p.time_spotted}
                             />
                         </Grid>
                     ))}
