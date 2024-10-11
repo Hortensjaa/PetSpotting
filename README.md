@@ -1,4 +1,4 @@
-# PetSpotting-App
+# :dog: Pet Spotting :cat:
 
 A web application for sharing adorable pictures of pets, built with a Spring Boot backend and a React frontend. This project integrates Google Drive for file storage and connects to a Microsoft SQL Server database hosted on Azure.
 
