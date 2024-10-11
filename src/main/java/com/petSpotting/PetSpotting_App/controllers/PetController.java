@@ -40,6 +40,7 @@ public class PetController {
     {
         if(name!=null && !name.isEmpty()) {
             Pet pet = new Pet(name, description, Pet.castSpecies(species));
+            // uploading file
             if (file!=null && !file.isEmpty()) {
                 File tempFile = File.createTempFile("temp", null);
                 file.transferTo(tempFile);

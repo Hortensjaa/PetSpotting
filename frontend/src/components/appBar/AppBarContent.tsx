@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {AppBar, Toolbar, IconButton, Badge, Typography, Box, Tooltip} from '@mui/material';
+import {AppBar, Toolbar, IconButton, Typography, Box, Tooltip} from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import CommentIcon from '@mui/icons-material/Comment';
 import FavoriteIcon from '@mui/icons-material/Favorite';

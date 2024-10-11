@@ -13,7 +13,7 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import ShareIcon from '@mui/icons-material/Share';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 
-import Pet from "../types/Pet.ts";
+import Pet from "../../types/Pet.ts";
 import {Box} from "@mui/material";
 
 

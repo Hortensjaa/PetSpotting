@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
-import AppBarContent from "./AppBarContent/AppBarContent.tsx";
-import MobileMenu from "./AppBarContent/MobileMenu.tsx";
+import AppBarContent from "./AppBarContent.tsx";
+import MobileMenu from "./MobileMenu.tsx";
 
 
 export default function AppBar() {

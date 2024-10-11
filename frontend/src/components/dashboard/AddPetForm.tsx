@@ -2,7 +2,7 @@ import {ChangeEvent, useState} from "react";
 import {Box, Button, Chip, FormControl, Input, TextField} from "@mui/material";
 import Typography from "@mui/material/Typography";
 
-import {speciesList} from "../types/Pet.ts";
+import {speciesList} from "../../types/Pet.ts";
 
 
 const AddPetForm = () => {

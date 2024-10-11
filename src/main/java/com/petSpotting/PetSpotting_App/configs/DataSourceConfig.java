@@ -1,4 +1,4 @@
-package com.petSpotting.PetSpotting_App;
+package com.petSpotting.PetSpotting_App.configs;
 
 import com.azure.core.credential.TokenRequestContext;
 import com.azure.identity.DefaultAzureCredential;

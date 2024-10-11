@@ -1,6 +1,5 @@
 import * as React from "react";
 import {Badge, IconButton, Tooltip} from "@mui/material";
-import FavoriteIcon from "@mui/icons-material/Favorite";
 import {ReactNode} from "react";
 
 interface AppBarIconProps {
