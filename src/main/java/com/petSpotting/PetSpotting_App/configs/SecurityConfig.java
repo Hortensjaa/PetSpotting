@@ -23,7 +23,7 @@ public class SecurityConfig {
                     registry.anyRequest().authenticated();
                 })
                 // login with oauth2
-                .oauth2Login(form -> form.defaultSuccessUrl("http://localhost:5173/profile", true))
+                .oauth2Login(form -> form.defaultSuccessUrl("/api/profile", true))
                 .build();
     }
 }

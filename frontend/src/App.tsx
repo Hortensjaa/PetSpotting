@@ -1,16 +1,11 @@
-import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
-import {Login, Dashboard, Profile} from "./components";
+import {RouterProvider} from "react-router-dom";
+import router from "./Router.tsx";
+
 
 function App() {
 
     return (
-        <Router>
-            <Routes>
-                <Route path="/" element={<Login/>}/>
-                <Route path="/dashboard" element={<Dashboard/>}/>
-                <Route path="/profile" element={<Profile/>}/>
-            </Routes>
-        </Router>
+        <RouterProvider router={router} />
     );
 }
 
