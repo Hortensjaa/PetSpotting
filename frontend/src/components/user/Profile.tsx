@@ -1,18 +1,26 @@
 import {useEffect, useState} from "react";
 import {Box} from "@mui/material";
-import axios from "axios";
 
 
 function Profile() {
     const [user, setUser] = useState(null);
 
+    const getUser = async () => {
+
+        const response = await fetch(
+            '/api/user',
+            { method: 'GET', redirect: "follow", credentials: 'include' }
+        ).then((response) => response);
+
+        if(response.redirected) {
+            document.location = response.url;
+        }
+        const data = await response.json();
+        setUser(data)
+    }
+
     useEffect(() => {
-        axios.get('/api/user', {withCredentials: true})
-            .then((res) => {
-                setUser(res.data)
-            }).catch(er => {
-            console.log("Error fetching user data: ", er)
-        });
+        getUser();
     }, []);
 
     return (
