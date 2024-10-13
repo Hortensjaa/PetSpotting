@@ -18,10 +18,22 @@ function Dashboard() {
         width: {xs: '100%', sm: '50%', md: '25%'},
     };
 
+    const getPets = async () => {
+
+        const response = await fetch(
+            '/api/pets',
+            { method: 'GET', redirect: "follow", credentials: 'include' }
+        ).then((response) => response);
+
+        if(response.redirected) {
+            document.location = response.url;
+        }
+        const data = await response.json();
+        setPets(data)
+    }
+
     useEffect(() => {
-        axios.get('/api/pets').then((res) => {
-            setPets(res.data)
-        })
+        getPets();
     }, []);
 
     return (
