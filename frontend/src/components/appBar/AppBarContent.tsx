@@ -9,6 +9,7 @@ import InfoIcon from '@mui/icons-material/Info';
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 import { Search, SearchIconWrapper, StyledInputBase } from './Search.tsx'
 import AppBarIcon from "./AppBarIcon.tsx";
+import {Link} from "react-router-dom";
 
 interface AppBarContentProps {
     handleProfileMenuOpen: (event: React.MouseEvent<HTMLElement>) => void;
@@ -37,9 +38,11 @@ const AppBarContent: React.FC<AppBarContentProps> = ({  handleMobileMenuOpen, mo
                         </IconButton>
                     </Tooltip>
                 </Box>
-                <Typography variant="h6" noWrap component="div" sx={{ display: { xs: 'none', sm: 'block' } }} >
-                    Pet Spotting
-                </Typography>
+                <Link to="/dashboard" style={{ color: 'inherit', textDecoration: "inherit"  }}>
+                    <Typography variant="h6" noWrap component="div" sx={{ display: { xs: 'none', sm: 'block' } }} >
+                        Pet Spotting
+                    </Typography>
+                </Link>
                 <Search>
                     <SearchIconWrapper>
                         <SearchIcon />
@@ -51,7 +54,9 @@ const AppBarContent: React.FC<AppBarContentProps> = ({  handleMobileMenuOpen, mo
                     <AppBarIcon icon={<PeopleAltIcon />} textOnHover={"New posts"} badgeNum={5}/>
                     <AppBarIcon icon={<CommentIcon />} textOnHover={"New comments"} badgeNum={4}/>
                     <AppBarIcon icon={<FavoriteIcon />} textOnHover={"New reactions"} badgeNum={12}/>
-                    <AppBarIcon icon={<AccountCircle />} textOnHover={"Profile"} badgeNum={0}/>
+                    <Link to="/profile" style={{ color: 'inherit' }}>
+                        <AppBarIcon icon={<AccountCircle />} textOnHover={"Profile"} badgeNum={0}/>
+                    </Link>
                 </Box>
                 <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
                     <IconButton

@@ -22,7 +22,10 @@ const Login = () => {
                 flexDirection: 'column',
             }}
         >
-            <Typography variant="h2" noWrap component="div" sx={{ display: { sm: 'block' } }}>
+            <Typography variant="h2" noWrap component="div" sx={{ display: { sm: 'block', xs: 'none' } }}>
+                Pet Spotting
+            </Typography>
+            <Typography variant="h3" noWrap component="div" sx={{ display: { sm: 'none', xs: 'block' } }}>
                 Pet Spotting
             </Typography>
             <Button onClick={googleLogin} sx={{ mt: 2 }}>Log in with Gmail</Button>

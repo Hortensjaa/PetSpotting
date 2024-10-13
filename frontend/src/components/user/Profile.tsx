@@ -37,7 +37,7 @@ function Profile() {
             }}
         >
             <AppBar/>
-            <Box sx={{height: {xs: 60, md: 80}}}/>
+            <Box sx={{height: {xs: 100, sm: 150, md: 150}}}/>
             {user ? (
                 <Box sx={{
                     display: 'flex',
