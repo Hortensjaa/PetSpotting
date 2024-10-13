@@ -28,7 +28,7 @@ function Profile() {
             {user ? (
                 <div>
                     <h1>{user.name}</h1>
-                    <h2>{user.email}</h2>
+                    <h2>{user.email ? user.email : user.login}</h2>
                 </div>
             ) : (
                 <h1>Loading user data...</h1>

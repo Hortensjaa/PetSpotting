@@ -13,6 +13,8 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import java.util.List;
 
+import static com.petSpotting.PetSpotting_App.configs.FrontendConfig.frontendUrl;
+
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity
@@ -23,19 +25,19 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(registry -> {
                     // urls that doesn't require authentication
-                    registry.requestMatchers("/", "/login").permitAll();
+                    registry.requestMatchers( "/login").permitAll();
                     // any other url requires authentication
                     registry.anyRequest().authenticated();
                 })
                 // login with oauth2
-                .oauth2Login(form -> form.defaultSuccessUrl("/api/profile", true))
+                .oauth2Login(form -> form.defaultSuccessUrl(frontendUrl + "/profile", true))
                 .build();
     }
 
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(List.of("http://localhost:5173"));
+        configuration.setAllowedOrigins(List.of(frontendUrl));
         configuration.addAllowedHeader("*");
         configuration.addAllowedMethod("*");
         configuration.setAllowCredentials(true);
