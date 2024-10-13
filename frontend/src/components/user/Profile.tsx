@@ -1,9 +1,13 @@
 import {useEffect, useState} from "react";
 import {Box} from "@mui/material";
+import User from "../../types/User.ts";
+import Typography from "@mui/material/Typography";
+import Avatar from "@mui/material/Avatar";
+import AppBar from "../appBar/AppBar.tsx";
 
 
 function Profile() {
-    const [user, setUser] = useState(null);
+    const [user, setUser] = useState<User>(null);
 
     const getUser = async () => {
 
@@ -24,12 +28,39 @@ function Profile() {
     }, []);
 
     return (
-        <Box sx={{width: {xs: '100%'}}}>
+        <Box
+            sx={{
+                height: '100vh',
+                width: '100vw',
+                justifyContent: 'center',
+                alignItems: 'center',
+            }}
+        >
+            <AppBar/>
+            <Box sx={{height: {xs: 60, md: 80}}}/>
             {user ? (
-                <div>
-                    <h1>{user.name}</h1>
-                    <h2>{user.email ? user.email : user.login}</h2>
-                </div>
+                <Box sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    flexDirection: 'column'
+                }}>
+                    {user.avatar_url ? (
+                        <Avatar alt="User Avatar" src={user.avatar_url} sx={{ width: 150, height: 150 }} />
+                    ) : (
+                        <Avatar alt="No Avatar"
+                                sx={{ bgcolor: (theme) => theme.palette.secondary.main, width: 150, height: 150 }}>
+                            {user.name[0]}
+                        </Avatar>
+                    )}
+                    <Typography variant="h3" sx={{ marginTop: 2 }}>{user.name}</Typography>
+                    <Typography variant="h4" sx={{ marginTop: 1 }}>{user.id}</Typography>
+                    <Typography variant="h6" sx={{ marginTop: 1 }}>
+                        email: {user.email ? user.email : "N/A"}
+                    </Typography>
+                    <Typography variant="subtitle1">Provided by: {user.provider}</Typography>
+
+
+                </Box>
             ) : (
                 <h1>Loading user data...</h1>
             )}

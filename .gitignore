@@ -32,5 +32,6 @@ build/
 ### VS Code ###
 .vscode/
 /cred.json
-/todo.txt
+/drafts/todo.txt
 /.env
+/drafts/

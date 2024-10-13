@@ -1,4 +1,4 @@
-import {Button, Typography} from "@mui/material";
+import {Box, Button, Typography} from "@mui/material";
 import * as React from "react";
 
 const Login = () => {
@@ -12,13 +12,22 @@ const Login = () => {
     }
 
     return (
-        <div>
-            <Typography variant="h2" noWrap component="div" sx={{ display: { xs: 'none', sm: 'block' } }} >
+        <Box
+            sx={{
+                height: '100vh',
+                width: '100vw',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                flexDirection: 'column',
+            }}
+        >
+            <Typography variant="h2" noWrap component="div" sx={{ display: { sm: 'block' } }}>
                 Pet Spotting
             </Typography>
-            <Button onClick={googleLogin}>Log in with Gmail</Button>
-            <Button onClick={githubLogin}>Log in with Github</Button>
-        </div>
+            <Button onClick={googleLogin} sx={{ mt: 2 }}>Log in with Gmail</Button>
+            <Button onClick={githubLogin} sx={{ mt: 2 }}>Log in with Github</Button>
+        </Box>
     )
 }
 export default Login
