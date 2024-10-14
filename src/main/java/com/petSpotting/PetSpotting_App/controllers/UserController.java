@@ -1,18 +1,39 @@
 package com.petSpotting.PetSpotting_App.controllers;
 
-import com.petSpotting.PetSpotting_App.collections.User;
+import com.petSpotting.PetSpotting_App.dbEntities.User;
+import com.petSpotting.PetSpotting_App.services.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.core.user.OAuth2User;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.Objects;
 
+import static com.petSpotting.PetSpotting_App.configs.FrontendConfig.frontendUrl;
+
 @RestController
 public class UserController {
+    @Autowired
+    private UserService userService;
 
-    @RequestMapping("api/user")
-    public User user(@AuthenticationPrincipal OAuth2User principal) {
+    @GetMapping("api/user")
+    public User getUser(@AuthenticationPrincipal OAuth2User principal) {
+        return extractData(principal);
+    }
+
+    @GetMapping("api/addUser")
+    public RedirectView addUser(@AuthenticationPrincipal OAuth2User principal) {
+        User user = extractData(principal);
+        User existingUser = userService.getUserById(user.getUser_id());
+        if (existingUser == null) {
+            userService.addUser(user);
+        }
+        return new RedirectView(frontendUrl + "/profile");
+    }
+
+    private User extractData(@AuthenticationPrincipal OAuth2User principal) {
         String id = principal.getAttribute("sub");
         String provider = "google";
         if (id == null) {

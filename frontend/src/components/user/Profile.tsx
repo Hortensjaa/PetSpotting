@@ -53,7 +53,7 @@ function Profile() {
                         </Avatar>
                     )}
                     <Typography variant="h3" sx={{ marginTop: 2 }}>{user.name}</Typography>
-                    <Typography variant="h4" sx={{ marginTop: 1 }}>{user.id}</Typography>
+                    <Typography variant="h4" sx={{ marginTop: 1 }}>{user.user_id}</Typography>
                     <Typography variant="h6" sx={{ marginTop: 1 }}>
                         email: {user.email ? user.email : "N/A"}
                     </Typography>

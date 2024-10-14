@@ -1,6 +1,6 @@
 package com.petSpotting.PetSpotting_App.controllers;
 
-import com.petSpotting.PetSpotting_App.collections.Pet;
+import com.petSpotting.PetSpotting_App.dbEntities.Pet;
 import com.petSpotting.PetSpotting_App.services.DriverService;
 import com.petSpotting.PetSpotting_App.services.PetService;
 import org.springframework.beans.factory.annotation.Autowired;

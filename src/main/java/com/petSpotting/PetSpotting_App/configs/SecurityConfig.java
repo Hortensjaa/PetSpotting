@@ -30,7 +30,7 @@ public class SecurityConfig {
                     registry.anyRequest().authenticated();
                 })
                 // login with oauth2
-                .oauth2Login(form -> form.defaultSuccessUrl(frontendUrl + "/profile", true))
+                .oauth2Login(form -> form.defaultSuccessUrl("/api/addUser", true))
                 .logout(logout -> logout.logoutSuccessUrl(frontendUrl + "/login"))
                 .build();
     }

@@ -1,7 +1,7 @@
 package com.petSpotting.PetSpotting_App.services;
 
 
-import com.petSpotting.PetSpotting_App.collections.Pet;
+import com.petSpotting.PetSpotting_App.dbEntities.Pet;
 import com.petSpotting.PetSpotting_App.repositories.PetRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,7 +21,7 @@ public class PetService {
         return petRepo.findAll();
     }
 
-    public Pet getPetById(Long id) {
+    public Pet getPetById(String id) {
         return petRepo.findById(id).orElse(null);
     }
 

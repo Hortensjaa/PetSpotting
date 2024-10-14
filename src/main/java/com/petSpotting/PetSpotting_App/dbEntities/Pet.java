@@ -1,5 +1,6 @@
-package com.petSpotting.PetSpotting_App.collections;
+package com.petSpotting.PetSpotting_App.dbEntities;
 
+import com.petSpotting.PetSpotting_App.collections.Species;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -20,6 +21,9 @@ public class Pet {
     private String description;
     private String image_url;
     private LocalDateTime time_spotted;
+    @ManyToOne
+    @JoinColumn(name = "author", referencedColumnName = "user_id")
+    private User author;
 
     public Pet(String name, String description, Species species) {
         this.name = name;
@@ -27,9 +31,7 @@ public class Pet {
         this.species = species;
     }
 
-    public Pet() {
-
-    }
+    public Pet() {}
 
     public static Species castSpecies(String species) {
         if (species.equalsIgnoreCase("cat")) {

@@ -54,7 +54,7 @@ function Dashboard() {
                                      description={p.description}
                                      image_url={p.image_url}
                                      time_spotted={p.time_spotted}
-                            />
+                                     author={null}/>
                         </Grid>
                     ))}
                 </Grid>

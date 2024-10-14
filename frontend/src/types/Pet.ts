@@ -5,6 +5,7 @@ export default interface Pet {
     description: string | null,
     image_url: string | null,
     time_spotted: string,
+    author: string | null
 }
 
 export const speciesList = ["DOG", "CAT", "OTHER"]

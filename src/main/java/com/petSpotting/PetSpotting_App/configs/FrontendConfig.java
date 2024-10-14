@@ -4,5 +4,5 @@ import lombok.Getter;
 
 @Getter
 public class FrontendConfig {
-    static final String frontendUrl = "http://localhost:5173";
+    public static final String frontendUrl = "http://localhost:5173";
 }
