@@ -3,15 +3,15 @@ import {AppBar, Toolbar, IconButton, Typography, Box, Tooltip} from '@mui/materi
 import SearchIcon from '@mui/icons-material/Search';
 import CommentIcon from '@mui/icons-material/Comment';
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import AccountCircle from '@mui/icons-material/AccountCircle';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import InfoIcon from '@mui/icons-material/Info';
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 import { Search, SearchIconWrapper, StyledInputBase } from './Search.tsx'
 import AppBarIcon from "./AppBarIcon.tsx";
 import {Link} from "react-router-dom";
-import LogoutIcon from "@mui/icons-material/Logout";
-import {backendUrl} from "../../consts.ts";
+import {useContext} from "react";
+import {UserContext} from "../../userProvider.tsx";
+import Avatar from "@mui/material/Avatar";
 
 interface AppBarContentProps {
     handleProfileMenuOpen: (event: React.MouseEvent<HTMLElement>) => void;
@@ -21,6 +21,8 @@ interface AppBarContentProps {
 }
 
 const AppBarContent: React.FC<AppBarContentProps> = ({  handleMobileMenuOpen, mobileMenuId }) => {
+    const { state: user, actions } = useContext(UserContext);
+
     return (
         <AppBar position="fixed">
             <Toolbar>
@@ -35,7 +37,7 @@ const AppBarContent: React.FC<AppBarContentProps> = ({  handleMobileMenuOpen, mo
                             - share links
                         </>
                     }>
-                        <IconButton size="large" edge="start" color="inherit" aria-label="add pet" sx={{ mr: 2 }}>
+                        <IconButton size="large" edge="start" color="inherit" aria-label="info" sx={{ mr: 2 }}>
                             <InfoIcon />
                         </IconButton>
                     </Tooltip>
@@ -57,10 +59,11 @@ const AppBarContent: React.FC<AppBarContentProps> = ({  handleMobileMenuOpen, mo
                     <AppBarIcon icon={<CommentIcon />} textOnHover={"New comments"} badgeNum={4}/>
                     <AppBarIcon icon={<FavoriteIcon />} textOnHover={"New reactions"} badgeNum={12}/>
                     <Link to="/profile" style={{ color: 'inherit' }}>
-                        <AppBarIcon icon={<AccountCircle />} textOnHover={"Profile"} badgeNum={0}/>
-                    </Link>
-                    <Link to={`${backendUrl}/logout`}  style={{ color: 'inherit', textDecoration: 'inherit' }}>
-                        <AppBarIcon icon={<LogoutIcon />} textOnHover={"Log out"} badgeNum={0}/>
+                        <Avatar
+                            alt={user?.name}
+                            src={user?.avatar_url}
+                            sx={{ width: 40, height: 40, marginLeft: 3 }}
+                        />
                     </Link>
                 </Box>
                 <Box sx={{ display: { xs: 'flex', md: 'none' } }}>

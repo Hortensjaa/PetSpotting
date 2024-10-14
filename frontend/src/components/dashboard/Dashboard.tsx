@@ -1,6 +1,5 @@
-import {useEffect, useState} from 'react'
+import {useContext, useEffect, useState} from 'react'
 import Grid from '@mui/material/Grid2';
-import axios from 'axios';
 
 import Pet from "../../types/Pet.ts";
 import PetCard from "./PetCard.tsx";
@@ -8,9 +7,11 @@ import AppBar from "../appBar/AppBar.tsx";
 import {Box} from "@mui/material";
 import AddPetForm from "./AddPetForm.tsx";
 import Typography from "@mui/material/Typography";
+import {UserContext} from "../../userProvider.tsx";
 
 
 function Dashboard() {
+    const { state: user, actions } = useContext(UserContext);
     const [petsList, setPets] = useState<Pet[]>([]);
     const gridItemStyles = {
         marginX: {xs: 0, sm: 2, md: 5},
@@ -40,7 +41,7 @@ function Dashboard() {
         <Box sx={{width: {xs: '100%'}}}>
             <AppBar/>
             <Box sx={{height: {xs: 60, md: 80}}}/>
-            {petsList.length > 0 ? (
+            {user ? (
                 <Grid container spacing={2} justifyContent="space-between" alignItems="center">
                     <Grid item="true" key={-1} xs={12} sm={6} md={4} sx={gridItemStyles}>
                         <AddPetForm/>
