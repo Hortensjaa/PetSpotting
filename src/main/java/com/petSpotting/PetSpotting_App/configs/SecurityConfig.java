@@ -31,6 +31,7 @@ public class SecurityConfig {
                 })
                 // login with oauth2
                 .oauth2Login(form -> form.defaultSuccessUrl(frontendUrl + "/profile", true))
+                .logout(logout -> logout.logoutSuccessUrl(frontendUrl + "/login"))
                 .build();
     }
 

@@ -6,7 +6,9 @@ import AccountCircle from '@mui/icons-material/AccountCircle';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import MobileMenuItem from "./MobileMenuItem.tsx";
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
+import LogoutIcon from '@mui/icons-material/Logout';
 import {Link} from "react-router-dom";
+import {backendUrl} from "../../consts.ts";
 
 interface MobileMenuProps {
     mobileMoreAnchorEl: HTMLElement | null | undefined;
@@ -40,7 +42,9 @@ const MobileMenu: React.FC<MobileMenuProps> = ({
             <MobileMenuItem icon={<PeopleAltIcon />} text="New posts" badgeNum={5} />
             <MobileMenuItem icon={<CommentIcon />} text="Comments" badgeNum={4} />
             <MobileMenuItem icon={<FavoriteIcon />} text="Reactions" badgeNum={12} />
-
+            <Link to={`${backendUrl}/logout`} style={{ color: 'inherit', textDecoration: 'inherit' }}>
+                <MobileMenuItem icon={<LogoutIcon />} text="Log out" badgeNum={0} />
+            </Link>
         </Menu>
     );
 };

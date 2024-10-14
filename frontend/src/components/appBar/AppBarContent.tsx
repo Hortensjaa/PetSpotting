@@ -10,6 +10,8 @@ import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 import { Search, SearchIconWrapper, StyledInputBase } from './Search.tsx'
 import AppBarIcon from "./AppBarIcon.tsx";
 import {Link} from "react-router-dom";
+import LogoutIcon from "@mui/icons-material/Logout";
+import {backendUrl} from "../../consts.ts";
 
 interface AppBarContentProps {
     handleProfileMenuOpen: (event: React.MouseEvent<HTMLElement>) => void;
@@ -56,6 +58,9 @@ const AppBarContent: React.FC<AppBarContentProps> = ({  handleMobileMenuOpen, mo
                     <AppBarIcon icon={<FavoriteIcon />} textOnHover={"New reactions"} badgeNum={12}/>
                     <Link to="/profile" style={{ color: 'inherit' }}>
                         <AppBarIcon icon={<AccountCircle />} textOnHover={"Profile"} badgeNum={0}/>
+                    </Link>
+                    <Link to={`${backendUrl}/logout`}  style={{ color: 'inherit', textDecoration: 'inherit' }}>
+                        <AppBarIcon icon={<LogoutIcon />} textOnHover={"Log out"} badgeNum={0}/>
                     </Link>
                 </Box>
                 <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
