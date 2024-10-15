@@ -1,11 +1,13 @@
-import {ChangeEvent, useState} from "react";
+import {ChangeEvent, useContext, useState} from "react";
 import {Box, Button, Chip, FormControl, Input, TextField} from "@mui/material";
 import Typography from "@mui/material/Typography";
 
 import {speciesList} from "../../types/Pet.ts";
+import {UserContext} from "../../userProvider.tsx";
 
 
 const AddPetForm = () => {
+    const { state: user, actions } = useContext(UserContext);
     const [file, setFile] = useState<File | null>(null);
     const [fileUrl, setFileUrl] = useState('')
     const [name, setName] = useState<string>('');
@@ -32,6 +34,7 @@ const AddPetForm = () => {
             formData.append('species', species);
             formData.append('description', description);
             formData.append('image', file);
+            formData.append('user', user?.user_id ? user.user_id : '-1');
 
             try {
                 const res = await fetch('api/pets', {

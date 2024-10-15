@@ -1,8 +1,10 @@
 package com.petSpotting.PetSpotting_App.controllers;
 
 import com.petSpotting.PetSpotting_App.dbEntities.Pet;
+import com.petSpotting.PetSpotting_App.dbEntities.User;
 import com.petSpotting.PetSpotting_App.services.DriverService;
 import com.petSpotting.PetSpotting_App.services.PetService;
+import com.petSpotting.PetSpotting_App.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +23,9 @@ public class PetController {
     @Autowired
     private PetService petService;
     @Autowired
-    private DriverService service;
+    private DriverService driverService;
+    @Autowired
+    private UserService userService;
 
     @GetMapping("/api/pets")
     public ResponseEntity<List<Pet>> getAllPets() {
@@ -36,7 +40,8 @@ public class PetController {
     @PostMapping("/api/pets")
     public ResponseEntity<Pet> addPet(
             @RequestParam("name") String name, @RequestParam("description") String description,
-            @RequestParam("species") String species, @RequestParam("image") MultipartFile file) throws Exception
+            @RequestParam("species") String species, @RequestParam("image") MultipartFile file,
+            @RequestParam("user") String user_id) throws Exception
     {
         if(name!=null && !name.isEmpty()) {
             Pet pet = new Pet(name, description, Pet.castSpecies(species));
@@ -44,7 +49,12 @@ public class PetController {
             if (file!=null && !file.isEmpty()) {
                 File tempFile = File.createTempFile("temp", null);
                 file.transferTo(tempFile);
-                pet.setImage_url(service.uploadImageToDrive(tempFile).getUrl());
+                pet.setImage_url(driverService.uploadImageToDrive(tempFile).getUrl());
+            }
+            // finding user
+            User user = userService.getUserById(user_id);
+            if (user != null) {
+                pet.setAuthor(user);
             }
             pet.setTime_spotted(LocalDateTime.now());
             petService.addPet(pet);

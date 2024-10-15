@@ -62,7 +62,7 @@ const AppBarContent: React.FC<AppBarContentProps> = ({  handleMobileMenuOpen, mo
                         <Avatar
                             alt={user?.name}
                             src={user?.avatar_url}
-                            sx={{ width: 40, height: 40, marginLeft: 3 }}
+                            sx={{ width: 40, height: 40, marginLeft: 3, textDecoration: "inherit"  }}
                         />
                     </Link>
                 </Box>

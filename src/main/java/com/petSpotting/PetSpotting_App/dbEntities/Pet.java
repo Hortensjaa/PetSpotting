@@ -1,5 +1,6 @@
 package com.petSpotting.PetSpotting_App.dbEntities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.petSpotting.PetSpotting_App.collections.Species;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -23,6 +24,7 @@ public class Pet {
     private LocalDateTime time_spotted;
     @ManyToOne
     @JoinColumn(name = "author", referencedColumnName = "user_id")
+    @JsonBackReference
     private User author;
 
     public Pet(String name, String description, Species species) {

@@ -1,5 +1,6 @@
 package com.petSpotting.PetSpotting_App.dbEntities;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
@@ -24,6 +25,7 @@ public class User {
     @Setter
     private String avatar_url;
     @OneToMany(mappedBy = "author")
+    @JsonManagedReference
     private List<Pet> pets;
 
     public User(String provider, String id, String name, String email, String avatar_url) {
