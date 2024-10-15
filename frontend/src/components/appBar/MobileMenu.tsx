@@ -9,6 +9,8 @@ import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import LogoutIcon from '@mui/icons-material/Logout';
 import {Link} from "react-router-dom";
 import {backendUrl} from "../../consts.ts";
+import {useContext} from "react";
+import {UserContext} from "../../userProvider.tsx";
 
 interface MobileMenuProps {
     mobileMoreAnchorEl: HTMLElement | null | undefined;
@@ -23,6 +25,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({
                                                    isMobileMenuOpen,
                                                    handleMobileMenuClose,
                                                }) => {
+    const { state: thisUser, actions } = useContext(UserContext)
     return (
         <Menu
             anchorEl={mobileMoreAnchorEl}
@@ -33,7 +36,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({
             open={isMobileMenuOpen}
             onClose={handleMobileMenuClose}
         >
-            <Link to="/profile" style={{ color: 'inherit', textDecoration: 'inherit'  }}>
+            <Link to={`/profile/${thisUser?.user_id}`} style={{ color: 'inherit', textDecoration: 'inherit'  }}>
                 <MobileMenuItem icon={<AccountCircle />} text="Profile" badgeNum={0} />
             </Link>
             <Link to="/dashboard" style={{ color: 'inherit', textDecoration: 'inherit' }}>

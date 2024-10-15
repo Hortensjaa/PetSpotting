@@ -15,6 +15,7 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import {Box, Tooltip} from "@mui/material";
 
 import {PetResponse} from "../../types";
+import {Link} from "react-router-dom";
 
 
 export default function PetCard(pet: PetResponse) {
@@ -29,12 +30,14 @@ export default function PetCard(pet: PetResponse) {
             <CardHeader
                 avatar={
                     <Tooltip title={pet.user_name ? pet.user_name : "Anonymous"}>
-                        <Avatar
-                            src={pet.user_avatar ? pet.user_avatar : undefined}
-                            alt={pet.user_name ? pet.user_name : "Anonymous"}
-                            sx={{ bgcolor: (theme) => theme.palette.secondary.main }}
-                            aria-label="user"
-                        />
+                        <Link to={`/profile/${pet.user_id}`} style={{ color: 'inherit' }}>
+                            <Avatar
+                                src={pet.user_avatar ? pet.user_avatar : undefined}
+                                alt={pet.user_name ? pet.user_name : "Anonymous"}
+                                sx={{ bgcolor: (theme) => theme.palette.secondary.main }}
+                                aria-label="user"
+                            />
+                        </Link>
                     </Tooltip>
 
                 }

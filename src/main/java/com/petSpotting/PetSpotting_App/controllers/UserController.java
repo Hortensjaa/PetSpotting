@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -23,6 +24,11 @@ public class UserController {
         return extractData(principal);
     }
 
+    @GetMapping("api/user/{id}")
+    public User getUserById(@PathVariable String id) {
+        return userService.getUserById(id);
+    }
+
     @GetMapping("api/addUser")
     public RedirectView addUser(@AuthenticationPrincipal OAuth2User principal) {
         User user = extractData(principal);
@@ -30,7 +36,7 @@ public class UserController {
         if (existingUser == null) {
             userService.addUser(user);
         }
-        return new RedirectView(frontendUrl + "/profile");
+        return new RedirectView(frontendUrl + "/profile/" + user.getUser_id());
     }
 
     private User extractData(@AuthenticationPrincipal OAuth2User principal) {

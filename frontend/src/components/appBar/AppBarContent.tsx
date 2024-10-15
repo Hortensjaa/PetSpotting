@@ -58,7 +58,7 @@ const AppBarContent: React.FC<AppBarContentProps> = ({  handleMobileMenuOpen, mo
                     <AppBarIcon icon={<PeopleAltIcon />} textOnHover={"New posts"} badgeNum={5}/>
                     <AppBarIcon icon={<CommentIcon />} textOnHover={"New comments"} badgeNum={4}/>
                     <AppBarIcon icon={<FavoriteIcon />} textOnHover={"New reactions"} badgeNum={12}/>
-                    <Link to="/profile" style={{ color: 'inherit' }}>
+                    <Link to={`/profile/${user?.user_id}`} style={{ color: 'inherit' }}>
                         <Avatar
                             alt={user?.name}
                             src={user?.avatar_url}
