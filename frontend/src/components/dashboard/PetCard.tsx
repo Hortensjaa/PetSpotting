@@ -12,12 +12,12 @@ import Typography from '@mui/material/Typography';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import ShareIcon from '@mui/icons-material/Share';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
+import {Box, Tooltip} from "@mui/material";
 
-import Pet from "../../types/Pet.ts";
-import {Box} from "@mui/material";
+import {PetResponse} from "../../types";
 
 
-export default function PetCard(pet: Pet) {
+export default function PetCard(pet: PetResponse) {
     const handleImageClick = (imageUrl) => {
         if (imageUrl) {
             window.open(imageUrl, "_blank");
@@ -28,9 +28,15 @@ export default function PetCard(pet: Pet) {
         <Card sx={{ width: '100%' }}>
             <CardHeader
                 avatar={
-                    <Avatar sx={{ bgcolor: (theme) => theme.palette.secondary.main }} aria-label="user">
-                        U
-                    </Avatar>
+                    <Tooltip title={pet.user_name ? pet.user_name : "Anonymous"}>
+                        <Avatar
+                            src={pet.user_avatar ? pet.user_avatar : undefined}
+                            alt={pet.user_name ? pet.user_name : "Anonymous"}
+                            sx={{ bgcolor: (theme) => theme.palette.secondary.main }}
+                            aria-label="user"
+                        />
+                    </Tooltip>
+
                 }
                 action={
                     <IconButton aria-label="settings">

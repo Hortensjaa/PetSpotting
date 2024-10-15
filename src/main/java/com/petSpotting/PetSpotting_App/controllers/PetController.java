@@ -1,5 +1,6 @@
 package com.petSpotting.PetSpotting_App.controllers;
 
+import com.petSpotting.PetSpotting_App.collections.PetResponse;
 import com.petSpotting.PetSpotting_App.dbEntities.Pet;
 import com.petSpotting.PetSpotting_App.dbEntities.User;
 import com.petSpotting.PetSpotting_App.services.DriverService;
@@ -16,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -28,11 +30,15 @@ public class PetController {
     private UserService userService;
 
     @GetMapping("/api/pets")
-    public ResponseEntity<List<Pet>> getAllPets() {
+    public ResponseEntity<List<PetResponse>> getAllPets() {
         List<Pet> pets = petService.getAllPets();
+        ArrayList<PetResponse> petResponseList = new ArrayList<>(List.of());
         if(pets!=null)
         {
-            return new ResponseEntity<>(pets, HttpStatus.OK);
+            for (Pet pet : pets) {
+                petResponseList.add(new PetResponse(pet, pet.getAuthor()));
+            }
+            return new ResponseEntity<>(petResponseList, HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
     }

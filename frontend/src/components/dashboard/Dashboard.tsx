@@ -1,18 +1,18 @@
 import {useContext, useEffect, useState} from 'react'
 import Grid from '@mui/material/Grid2';
 
-import Pet from "../../types/Pet.ts";
 import PetCard from "./PetCard.tsx";
 import AppBar from "../appBar/AppBar.tsx";
 import {Box} from "@mui/material";
 import AddPetForm from "./AddPetForm.tsx";
 import Typography from "@mui/material/Typography";
 import {UserContext} from "../../userProvider.tsx";
+import {PetResponse} from "../../types";
 
 
 function Dashboard() {
     const { state: user, actions } = useContext(UserContext);
-    const [petsList, setPets] = useState<Pet[]>([]);
+    const [petsList, setPets] = useState<PetResponse[]>([]);
     const gridItemStyles = {
         marginX: {xs: 0, sm: 2, md: 5},
         marginY: {xs: 0, sm: 0, md: 0},
@@ -56,7 +56,10 @@ function Dashboard() {
                                      description={p.description}
                                      image_url={p.image_url}
                                      time_spotted={p.time_spotted}
-                                     author={null}/>
+                                     user_id={p.user_id}
+                                     user_name={p.user_name}
+                                     user_avatar={p.user_avatar}
+                            />
                         </Grid>
                     ))}
                 </Grid>
