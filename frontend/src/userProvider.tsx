@@ -1,4 +1,4 @@
-import {createContext, useState} from 'react';
+import {createContext, useEffect, useState} from 'react';
 import {User, UserContextI} from "./types";
 
 
@@ -6,6 +6,7 @@ export const UserContext = createContext<UserContextI>({
     state: null,
     actions: {
         setUser: () => {},
+        loadUser: () => {},
         setName: () => {},
         setAvatar: () => {},
         setEmail: () => {},
@@ -14,6 +15,20 @@ export const UserContext = createContext<UserContextI>({
 
 export const UserProvider = ({ children }) => {
     const [user, setUser] = useState<User | null>(null);
+
+    const loadUser = async () => {
+        const response = await fetch('/api/user', {
+            method: 'GET',
+            credentials: 'include',
+        });
+
+        if (response.redirected) {
+            document.location = response.url;
+        }
+
+        const data = await response.json();
+        setUser(data);
+    };
 
     function setName(newName: String) {
         if (user) {
@@ -35,7 +50,7 @@ export const UserProvider = ({ children }) => {
 
     const value = {
         state: user,
-        actions: { setUser, setName, setAvatar, setEmail },
+        actions: { setUser, loadUser, setName, setAvatar, setEmail },
     };
 
 
@@ -45,3 +60,5 @@ export const UserProvider = ({ children }) => {
         </UserContext.Provider>
     )
 }
+
+

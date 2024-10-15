@@ -34,6 +34,7 @@ function Dashboard() {
     }
 
     useEffect(() => {
+        actions.loadUser();
         getPets();
     }, []);
 
@@ -68,7 +69,7 @@ function Dashboard() {
                     height: '100vh'
                 }}>
                     <Typography variant="h5">
-                        Loading...
+                        Log in please :3
                     </Typography>
                 </Box>
             )}

@@ -11,22 +11,8 @@ import LogoutIcon from "@mui/icons-material/Logout";
 function Profile() {
     const { state: user, actions } = useContext(UserContext);
 
-    const getUser = async () => {
-        const response = await fetch('/api/user', {
-            method: 'GET',
-            credentials: 'include',
-        });
-
-        if (response.redirected) {
-            document.location = response.url;
-        }
-
-        const data = await response.json();
-        actions.setUser(data);
-    };
-
     useEffect(() => {
-        getUser();
+        actions.loadUser();
     }, []);
 
     return (
@@ -35,16 +21,7 @@ function Profile() {
             <Box sx={{ height: { xs: 100, sm: 150, md: 150 }}} />
             {user ? (
                 <Box sx={{ display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
-                    {user.avatar_url ? (
-                        <Avatar alt="User Avatar" src={user.avatar_url} sx={{ width: 150, height: 150 }} />
-                    ) : (
-                        <Avatar
-                            alt="No Avatar"
-                            sx={{ bgcolor: (theme) => theme.palette.secondary.main, width: 150, height: 150 }}
-                        >
-                            {user.name ? user.name[0] : "?"}
-                        </Avatar>
-                    )}
+                    <Avatar alt={user.name} src={user.avatar_url} sx={{ width: 150, height: 150 }} />
                     <Typography variant="h3" sx={{ marginTop: 2 }}>{user.name}</Typography>
                     <Typography variant="h5" sx={{ marginTop: 1 }}>{user.user_id}</Typography>
                     <Typography variant="h6" sx={{ marginTop: 1 }}>email: {user.email ? user.email : "N/A"}</Typography>
