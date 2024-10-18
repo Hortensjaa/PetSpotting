@@ -10,7 +10,7 @@ export default interface Pet {
 export const speciesList = ["DOG", "CAT", "OTHER"]
 
 export interface PetResponse {
-    _id: number,
+    id: string,
     species: string,
     name: string,
     description: string | null,

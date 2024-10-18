@@ -51,7 +51,20 @@ public class DriverService {
             res.setMessage(e.getMessage());
         }
         return  res;
+    }
 
+    public Res deleteFileFromDrive(String fileId) {
+        Res res = new Res();
+        try {
+            Drive drive = createDriveService();
+            drive.files().delete(fileId).execute();
+            res.setStatus(200);
+            res.setMessage("File deleted successfully");
+        } catch (Exception e) {
+            res.setStatus(500);
+            res.setMessage(e.getMessage());
+        }
+        return res;
     }
 
     private Drive createDriveService() throws GeneralSecurityException, IOException {

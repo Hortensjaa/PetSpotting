@@ -13,8 +13,8 @@ public class PetService {
     @Autowired
     private PetRepository petRepo ;
 
-    public Pet addPet(Pet pet) {
-        return petRepo.save(pet);
+    public void addPet(Pet pet) {
+        petRepo.save(pet);
     }
 
     public List<Pet> getAllPets() {
@@ -25,4 +25,7 @@ public class PetService {
         return petRepo.findById(id).orElse(null);
     }
 
+    public void deletePet(String id) {
+        petRepo.deleteById(id);
+    }
 }

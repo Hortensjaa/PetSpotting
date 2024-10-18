@@ -50,7 +50,7 @@ function Dashboard() {
                     {petsList.map((p, i) => (
                         <Grid item="true" key={i} xs={12} sm={6} md={4} sx={gridItemStyles}>
                             <PetCard key={i}
-                                     _id={p._id}
+                                     id={p.id}
                                      name={p.name}
                                      species={p.species}
                                      description={p.description}

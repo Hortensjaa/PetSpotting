@@ -9,10 +9,9 @@ import com.petSpotting.PetSpotting_App.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.core.user.OAuth2User;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -67,5 +66,24 @@ public class PetController {
             return new ResponseEntity<>(pet,HttpStatus.CREATED);
         }
         return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @DeleteMapping("/api/pets/{id}")
+    public void deletePet(@PathVariable String id, @AuthenticationPrincipal OAuth2User principal) {
+        // check if user is authenticated; if true, the request is coming from frontend, so it is alright
+        if (principal != null) {
+            Pet pet = petService.getPetById(id);
+            if (pet != null && pet.getImage_url() != null) {
+                String fileId = extractFileIdFromUrl(pet.getImage_url());
+                driverService.deleteFileFromDrive(fileId);
+            }
+            petService.deletePet(id);
+        }
+    }
+
+    private String extractFileIdFromUrl(String url) {
+        // Extract the file ID from the Google Drive URL
+        String fileId = url.substring(url.indexOf("id=") + 3, url.indexOf("&"));
+        return fileId;
     }
 }

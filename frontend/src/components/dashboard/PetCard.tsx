@@ -12,25 +12,48 @@ import Typography from '@mui/material/Typography';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import ShareIcon from '@mui/icons-material/Share';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
-import {Box, Tooltip} from "@mui/material";
+import {Box, Menu, MenuItem, Tooltip} from "@mui/material";
 
 import {PetResponse} from "../../types";
 import {Link} from "react-router-dom";
+import {useContext} from "react";
+import {UserContext} from "../../userProvider.tsx";
 
 
 export default function PetCard(pet: PetResponse) {
+    const { state: user, actions } = useContext(UserContext);
+    const [anchorEl, setAnchorEl] = React.useState(null);
+    const [deleted, setDeleted] = React.useState(false);
+
+    const handleClick = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
+
     const handleImageClick = (imageUrl) => {
         if (imageUrl) {
             window.open(imageUrl, "_blank");
         }
     };
 
+    const deleteAction = async () => {
+        setAnchorEl(null);
+        const response = await fetch(
+            `/api/pets/${pet.id}`,
+            { method: 'DELETE', redirect: "follow", credentials: 'include' }
+        ).then((response) => response);
+        setDeleted(true)
+    }
+
+    const editAction = async () => {
+        setAnchorEl(null);
+    }
+
     return (
-        <Card sx={{ width: '100%' }}>
+        <Card sx={{ width: deleted ? '0%' : '100%' }}>
             <CardHeader
                 avatar={
                     <Tooltip title={pet.user_name ? pet.user_name : "Anonymous"}>
-                        <Link to={`/profile/${pet.user_id}`} style={{ color: 'inherit' }}>
+                        <Link to={`/profile/${pet.user_id}`} style={{ color: 'inherit', textDecoration: "inherit" }}>
                             <Avatar
                                 src={pet.user_avatar ? pet.user_avatar : undefined}
                                 alt={pet.user_name ? pet.user_name : "Anonymous"}
@@ -42,9 +65,26 @@ export default function PetCard(pet: PetResponse) {
 
                 }
                 action={
-                    <IconButton aria-label="settings">
-                        <MoreVertIcon />
-                    </IconButton>
+                    (user?.user_id === pet.user_id) ? (
+                        <Box>
+                            <IconButton
+                                aria-label="settings"
+                                onClick={handleClick}
+                            >
+                                <MoreVertIcon />
+                            </IconButton>
+                            <Menu
+                                id="simple-menu"
+                                anchorEl={anchorEl}
+                                keepMounted
+                                open={Boolean(anchorEl)}
+                                onClose={() => setAnchorEl(null)}
+                            >
+                                <MenuItem onClick={editAction}>Edit</MenuItem>
+                                <MenuItem onClick={deleteAction}>Delete</MenuItem>
+                            </Menu>
+                        </Box>
+                    ) : null
                 }
                 title={pet.name}
                 subheader={pet.time_spotted ? format(new Date(pet.time_spotted), 'HH:mm:ss | dd.MM.yyyy') : "???"}
