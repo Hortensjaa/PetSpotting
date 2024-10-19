@@ -30,7 +30,7 @@ public class PetController {
 
     @GetMapping("/api/pets")
     public ResponseEntity<List<PetResponse>> getAllPets() {
-        List<Pet> pets = petService.getAllPets();
+        List<Pet> pets = petService.getAllPetsSorted();
         ArrayList<PetResponse> petResponseList = new ArrayList<>(List.of());
         if(pets!=null)
         {
@@ -83,7 +83,6 @@ public class PetController {
 
     private String extractFileIdFromUrl(String url) {
         // Extract the file ID from the Google Drive URL
-        String fileId = url.substring(url.indexOf("id=") + 3, url.indexOf("&"));
-        return fileId;
+        return url.substring(url.indexOf("id=") + 3, url.indexOf("&"));
     }
 }

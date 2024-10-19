@@ -13,12 +13,12 @@ public class PetService {
     @Autowired
     private PetRepository petRepo ;
 
-    public void addPet(Pet pet) {
-        petRepo.save(pet);
+    public List<Pet> getAllPetsSorted() {
+        return petRepo.findAllByOrderByIdDesc();
     }
 
-    public List<Pet> getAllPets() {
-        return petRepo.findAll();
+    public void addPet(Pet pet) {
+        petRepo.save(pet);
     }
 
     public Pet getPetById(String id) {
