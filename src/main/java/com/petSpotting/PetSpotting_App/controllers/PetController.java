@@ -18,6 +18,7 @@ import java.io.File;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @RestController
 public class PetController {
@@ -70,10 +71,10 @@ public class PetController {
 
     @DeleteMapping("/api/pets/{id}")
     public void deletePet(@PathVariable String id, @AuthenticationPrincipal OAuth2User principal) {
-        // check if user is authenticated; if true, the request is coming from frontend, so it is alright
         if (principal != null) {
             Pet pet = petService.getPetById(id);
-            if (pet != null && pet.getImage_url() != null) {
+            if (pet != null && pet.getImage_url() != null
+                    && Objects.equals(pet.getAuthor().getUser_id(), extractUserId(principal))) {
                 String fileId = extractFileIdFromUrl(pet.getImage_url());
                 driverService.deleteFileFromDrive(fileId);
             }
@@ -81,8 +82,38 @@ public class PetController {
         }
     }
 
+    @PatchMapping("/api/pets/{id}")
+    public void updatePet(@PathVariable String id,
+                          @RequestParam("name") String name,
+                          @RequestParam("description") String description,
+                          @RequestParam("species") String species,
+                          @AuthenticationPrincipal OAuth2User principal) {
+        if (principal != null) {
+            Pet pet = petService.getPetById(id);
+            if (pet != null && Objects.equals(pet.getAuthor().getUser_id(), extractUserId(principal))) {
+                if (name != null && !name.isEmpty()) {
+                    pet.setName(name);
+                }
+                if (description != null && !description.isEmpty()) {
+                    pet.setDescription(description);
+                }
+                if (species != null && !species.isEmpty()) {
+                    pet.setSpecies(Pet.castSpecies(species));
+                }
+                petService.addPet(pet);
+            }
+        }
+    }
+
     private String extractFileIdFromUrl(String url) {
-        // Extract the file ID from the Google Drive URL
         return url.substring(url.indexOf("id=") + 3, url.indexOf("&"));
+    }
+
+    private String extractUserId(@AuthenticationPrincipal OAuth2User principal) {
+        String user_id_from_token = principal.getAttribute("sub");
+        if (user_id_from_token == null) {
+            user_id_from_token = Objects.requireNonNull(principal.getAttribute("id")).toString();
+        }
+        return user_id_from_token;
     }
 }

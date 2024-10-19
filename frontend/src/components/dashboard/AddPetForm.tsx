@@ -77,6 +77,7 @@ const AddPetForm = () => {
                 value={name}
                 onChange={e => setName(e.target.value)}
                 fullWidth
+                inputProps={{maxLength: 50}}
             />
             <FormControl fullWidth>
                 <Input
@@ -121,6 +122,7 @@ const AddPetForm = () => {
                 multiline
                 rows={2}
                 fullWidth
+                inputProps={{ maxLength: 130 }}
             />
             <Button
                 onClick={handleUpload}
