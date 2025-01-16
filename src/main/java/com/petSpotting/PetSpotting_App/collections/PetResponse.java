@@ -17,6 +17,8 @@ public class PetResponse {
     private String user_id;
     private String user_name;
     private String user_avatar;
+    private Integer likes_num;
+    private Boolean liked;
 
     public PetResponse(Pet pet, User user) {
         this.id = pet.getId();
@@ -28,5 +30,7 @@ public class PetResponse {
         this.user_id = user.getUser_id();
         this.user_name = user.getName();
         this.user_avatar = user.getAvatar_url();
+        this.likes_num = pet.getLikes().size();
+        this.liked = pet.getLikes().contains(user);
     }
 }

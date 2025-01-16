@@ -10,6 +10,7 @@ import Avatar from '@mui/material/Avatar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import FavoriteIcon from '@mui/icons-material/Favorite';
+import FavoriteBorder from '@mui/icons-material/FavoriteBorder';
 import ShareIcon from '@mui/icons-material/Share';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import {Box, Menu, MenuItem, Tooltip} from "@mui/material";
@@ -26,6 +27,7 @@ export default function PetCard(pet: PetResponse) {
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [deleted, setDeleted] = React.useState(false);
     const [editing, setEditing] = React.useState(false);
+    const [liked, setLiked] = React.useState(pet.liked);
 
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
@@ -44,6 +46,15 @@ export default function PetCard(pet: PetResponse) {
             { method: 'DELETE', redirect: "follow", credentials: 'include'}
         ).then((response) => response);
         setDeleted(true)
+    }
+
+    const likeAction = async () => {
+        setAnchorEl(null);
+        setLiked(!liked);
+        const response = await fetch(
+            `/api/pets/${pet.id}/like`,
+            { method: 'POST', redirect: "follow", credentials: 'include'}
+        ).then((response) => response);
     }
 
     const editAction = async () => {
@@ -132,8 +143,8 @@ export default function PetCard(pet: PetResponse) {
                 </CardContent>
                 <CardActions disableSpacing>
                     <Box sx={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
-                        <IconButton aria-label="add to favorites">
-                            <FavoriteIcon />
+                        <IconButton aria-label="like!" onClick={likeAction}>
+                            {liked ? <FavoriteIcon /> : <FavoriteBorder />}
                         </IconButton>
                         <IconButton aria-label="share">
                             <ShareIcon />

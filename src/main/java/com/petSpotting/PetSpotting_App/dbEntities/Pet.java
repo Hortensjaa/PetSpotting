@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
@@ -26,6 +27,13 @@ public class Pet {
     @JoinColumn(name = "author", referencedColumnName = "user_id")
     @JsonBackReference
     private User author;
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "likes",
+            joinColumns = @JoinColumn(name = "id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id")
+    )
+    private List<User> likes;
 
     public Pet(String name, String description, Species species) {
         this.name = name;

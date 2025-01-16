@@ -59,6 +59,8 @@ function Dashboard() {
                                      user_id={p.user_id}
                                      user_name={p.user_name}
                                      user_avatar={p.user_avatar}
+                                     likes_num={p.likes_num}
+                                     liked={p.liked}
                             />
                         </Grid>
                     ))}

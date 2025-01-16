@@ -105,6 +105,13 @@ public class PetController {
         }
     }
 
+    @PostMapping("/api/pets/{petId}/like")
+    public void addLike(@PathVariable String petId, @AuthenticationPrincipal OAuth2User principal) {
+        if (principal != null) {
+            petService.addLike(petId, extractUserId(principal));
+        }
+    }
+
     private String extractFileIdFromUrl(String url) {
         return url.substring(url.indexOf("id=") + 3, url.indexOf("&"));
     }
