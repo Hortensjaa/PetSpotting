@@ -28,6 +28,7 @@ export default function PetCard(pet: PetResponse) {
     const [deleted, setDeleted] = React.useState(false);
     const [editing, setEditing] = React.useState(false);
     const [liked, setLiked] = React.useState(pet.liked);
+    const [likesNum, setLikesNum] = React.useState(pet.likes_num);
 
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
@@ -50,6 +51,11 @@ export default function PetCard(pet: PetResponse) {
 
     const likeAction = async () => {
         setAnchorEl(null);
+        if (liked) {
+            setLikesNum(likesNum - 1);
+        } else {
+            setLikesNum(likesNum + 1);
+        }
         setLiked(!liked);
         const response = await fetch(
             `/api/pets/${pet.id}/like`,
@@ -145,6 +151,7 @@ export default function PetCard(pet: PetResponse) {
                     <Box sx={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
                         <IconButton aria-label="like!" onClick={likeAction}>
                             {liked ? <FavoriteIcon /> : <FavoriteBorder />}
+                            {likesNum}
                         </IconButton>
                         <IconButton aria-label="share">
                             <ShareIcon />

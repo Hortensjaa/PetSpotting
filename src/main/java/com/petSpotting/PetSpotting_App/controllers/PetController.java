@@ -30,13 +30,14 @@ public class PetController {
     private UserService userService;
 
     @GetMapping("/api/pets")
-    public ResponseEntity<List<PetResponse>> getAllPets() {
+    public ResponseEntity<List<PetResponse>> getAllPets(@AuthenticationPrincipal OAuth2User user) {
+        String user_id = extractUserId(user);
         List<Pet> pets = petService.getAllPetsSorted();
         ArrayList<PetResponse> petResponseList = new ArrayList<>(List.of());
         if(pets!=null)
         {
             for (Pet pet : pets) {
-                petResponseList.add(new PetResponse(pet, pet.getAuthor()));
+                petResponseList.add(new PetResponse(pet, pet.getAuthor(), user_id));
             }
             return new ResponseEntity<>(petResponseList, HttpStatus.OK);
         }
